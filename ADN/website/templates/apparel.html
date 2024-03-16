@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+      
+<div class="card">
+    <div class="card-header">
+        {{apparel.id}} 
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{apparel.title}}</h5>
+        <p class="card-text">{{apparel.description}}</p>
+
+        <p class="card-text">Category: {{apparel.category}}</p>
+        <p class="card-text">Subcategory: {{apparel.sub_category}}</p>
+        <p class="card-text">Object Date: {{apparel.object_date}}</p>
+        <p class="card-text">Designer: {{apparel.desiger}}</p>
+        <p class="card-text">Label: {{apparel.label}}</p>
+        <p class="card-text">Basic Color: {{apparel.basic_color}}</p>
+        <p class="card-text">Color Subcategory: {{apparel.color_subcategory}}</p>
+        <p class="card-text">Hexcodes: {{apparel.hexcodes}}</p>
+        <p class="card-text">Condition: {{apparel.condition}}</p>
+        <p class="card-text">Material: {{apparel.material}}</p>
+        <p class="card-text">Price: {{apparel.price}}</p>
+        <p class="card-text">Sale Location: {{apparel.sale_location}}</p>
+        <p class="card-text">Secondary Sale Date: {{apparel.secondary_sale_date}}</p>
+        <p class="card-text">Month: {{apparel.month}}</p>
+        <p class="card-text">Day: {{apparel.day}}</p>
+
+    </div>
+    <br>
+    <a href="{% url 'home' %}" class="btn btn-primary" style =" margin-left: 20px">Back</a>
+    <br>
+    <a href="{% url 'delete_apparel' apparel.id %}" class="btn btn-danger" style =" margin-left: 20px">Delete</a>
+    <br>
+    <a href="{% url 'update_apparel' apparel.id %}" class="btn btn-secondary "style = "margin-left: 20px">Update Record</a>
+    <br>
+    <br>
+    {%endblock%}

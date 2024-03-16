@@ -1,0 +1,117 @@
+{%extends "base.html"%}
+{%block title%}Home{%endblock%}
+{%block content%}
+
+{%if user.is_authenticated%}
+
+<h1 style=" text-align: center;">Kate's Fashion</h1>
+
+<div class="input-group mb-3">
+  <!-- <input type="text" class = "form-control" placeholder="Search by first name" aria-label="Search by first name">
+  <span style = "margin-left : 10px" class="btn btn-primary">Search</span>
+  <input style = "margin-left : 20px" type="text" class = "form-control" placeholder="Search by last name" aria-label="Search by last name">
+  <span style = "margin-left : 10px" class="btn btn-primary">Search</span>
+  <input style = "margin-left : 20px" type="text" class = "form-control" placeholder="Search by state" aria-label="Search by State">
+  <span style = "margin-left : 10px" class="btn btn-primary">Search</span> -->
+</div>
+
+<div style="text-align: center;">
+  {% if apparel_list.has_previous %}
+    <a href="?page=1" class="btn btn-primary">First</a>
+    <a href="?page={{ apparel_list.previous_page_number }}" class="btn btn-primary">Previous</a>
+  {% endif %}
+
+  <span class="current" style="padding-left: 40px; padding-right: 40px;">
+    Page {{ apparel_list.number }} of {{ apparel_list.paginator.num_pages }}.
+  </span>
+
+  {% if apparel_list.has_next %}
+    <a href="?page={{ apparel_list.next_page_number }}" class="btn btn-primary">Next</a>
+    <a href="?page={{ apparel_list.paginator.num_pages }}" class="btn btn-primary">Last</a>
+  {% endif %}
+</div>
+
+
+<br>
+<table class="table table-hover table-bordered">
+  <thead class="table-light">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Category</th>
+      <th scope="col">Subcategory</th>
+      <th scope="col">Object Date</th>
+      <th scope="col">Designer</th>
+      <th scope="col">Label</th>
+      <th scope="col">Description</th>
+      <th scope="col">Basic Color</th>
+      <th scope="col">Color Subcategory</th>
+      <th scope="col">Hexcodes</th>
+      <th scope="col">Condition</th>
+      <th scope="col">Material</th>
+      <th scope="col">Price</th>
+      <th scope="col">Sale Location</th>
+      <th scope="col">Secondary Sale Date</th>
+      <th scope="col">Month</th>
+      <th scope="col">Day</th>
+
+    </tr>
+  </thead>
+
+
+  <tbody>
+    {% if apparels %}
+    {% for apparel in apparel_list %}
+    <tr onclick= "window.location.href = '{% url 'apparel' apparel.id %}'" style="cursor: pointer"> 
+      <!--dont touch above line its working fine -->
+      <td>{{apparel.id}}</td>
+      <td>{{apparel.title}}</td>
+      <td>{{apparel.category}}</td>
+      <td>{{apparel.sub_category}}</td>
+      <td>{{apparel.object_date}}</td>
+      <td>{{apparel.desiger}}</td>
+      <td>{{apparel.label}}</td>
+      <td>{{apparel.description|slice:":50"}}</td>
+      <td>{{apparel.basic_color}}</td>
+      <td>{{apparel.color_subcategory}}</td>
+      <td>{{apparel.hexcodes}}</td>
+      <td>{{apparel.condition}}</td>
+      <td>{{apparel.material}}</td>
+      <td>{{apparel.price}}</td>
+      <td>{{apparel.sale_location}}</td>
+      <td>{{apparel.secondary_sale_date}}</td>
+      <td>{{apparel.month}}</td>
+      <td>{{apparel.day}}</td>
+    </tr>
+      {% endfor %}
+    {%endif%}
+
+  </tbody>
+  </table>
+    <br>
+
+{%else%}
+<div class = "col-md-6 offset-md-3">
+<h1>Login </h1>
+<br>
+<br>
+<form method="POST" action="{%url 'home'%}">
+    {%csrf_token %}
+    <form>
+        <div class="mb-3">
+          <input type="text" class="form-control" name = "username" placeholder="Username" required >
+         </div>
+
+        <div class="mb-3">
+          <input type="password" class="form-control" name = "password", placeholder = "Password" , required ">
+        </div>
+        
+        <button type="submit" class="btn btn-secondary">Login</button>
+      </form>
+
+</form>
+</div>
+
+{%endif%}
+
+{%endblock%}

@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<h1>  Are you sure you want to Delete the Record</h1>
+
+ID = {{confirm_delete.id}}<br>
+Title = {{confirm_delete.title}}
+<br>
+Category = {{confirm_delete.category}} 
+<br>
+<br>    
+<a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary">Back</a>
+<a href="{% url 'confirm_delete' confirm_delete.id %}" class="btn btn-danger" style = 'margin-left : 20px'>Delete</a>
+
+{%endblock%}

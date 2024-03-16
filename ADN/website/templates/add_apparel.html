@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+{% if user.is_authenticated%}
+<div class = "col-md-6 offset-md-3">
+    
+
+    <form method="POST" action="{%url 'add_apparel'%}">
+        {%csrf_token %}
+        <br>
+        <br>
+        <br>
+        {{ form.as_p }}
+
+<br>
+<button type="submit" class="btn btn-primary">Add Apparel</button>
+<br>
+<br>
+</form>
+</div>
+
+
+{%endif%}
+{%endblock%}
