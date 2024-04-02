@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.db.models import Q 
 from .models import Apparel
 from .forms import AddApparelForm
+from .filters import Apparelfilter
 
 #pagination 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -15,6 +16,12 @@ def home(request):
 
     # apparels = Apparel.objects.order_by('id')
     apparels = Apparel.objects.order_by('id')
+
+     #filtering/searching
+    myFilter = Apparelfilter(request.GET, queryset=apparels)
+    apparels = myFilter.qs
+    #filtering/searching end
+
     #pagination
     p = Paginator(apparels, 10)
     page = request.GET.get('page')
@@ -29,12 +36,12 @@ def home(request):
         if user is not None:
             login(request,user)
             messages.success(request, "You have been logged in")
-            return redirect('home')
+            return render('home.html', {'myFilter':myFilter, 'apparels':apparels, 'apparel_list':apparel_list})
         else:
             messages.success(request,"Invalid credentials")
             return redirect('home')  
     else:
-        return render(request, 'home.html', {'apparels':apparels, 'apparel_list':apparel_list})
+        return render(request, 'home.html', {'apparels':apparels, 'apparel_list':apparel_list, 'myFilter':myFilter})
     
 def logout_user(request):
     logout(request)
